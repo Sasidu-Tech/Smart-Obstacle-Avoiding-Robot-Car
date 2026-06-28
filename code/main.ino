@@ -1,4 +1,4 @@
-```cpp
+
 #include <Servo.h>
 #include <NewPing.h>
 #include <AFMotor.h>
@@ -147,4 +147,3 @@ void stop() {
   r4.run(RELEASE);
 }
 
-```
