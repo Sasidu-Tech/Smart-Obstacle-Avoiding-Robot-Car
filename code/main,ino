@@ -1,1 +1,149 @@
+```cpp
+#include <Servo.h>
+#include <NewPing.h>
+#include <AFMotor.h>
 
+#define TriggerPin A2
+#define EchoPin A3
+#define MAX_DISTANCE 250
+
+Servo myServo;
+NewPing sonar(TriggerPin, EchoPin, MAX_DISTANCE);
+
+// Servo Positions
+int ServoNeutral = 75;
+int ServoLeft = 140;
+int ServoRight = 20;
+
+// Motors
+AF_DCMotor r1(1);
+AF_DCMotor r2(2);
+AF_DCMotor r3(3);
+AF_DCMotor r4(4);
+
+void setup() {
+
+  Serial.begin(9600);
+
+  myServo.attach(10);
+  myServo.write(ServoNeutral);
+  delay(500);
+
+  r1.setSpeed(100);
+  r2.setSpeed(100);
+  r3.setSpeed(100);
+  r4.setSpeed(100);
+}
+
+void loop() {
+
+  int distance = getDistance();
+
+  Serial.print("Front : ");
+  Serial.println(distance);
+
+  if (distance > 20) {
+
+    forward();
+
+  } else {
+
+    stop();
+    delay(200);
+
+    backward();
+    delay(250);
+
+    stop();
+    delay(200);
+
+    // Look Left
+    myServo.write(ServoLeft);
+    delay(500);
+    int leftDistance = getDistance();
+
+    Serial.print("Left : ");
+    Serial.println(leftDistance);
+
+    // Look Right
+    myServo.write(ServoRight);
+    delay(500);
+    int rightDistance = getDistance();
+
+    Serial.print("Right : ");
+    Serial.println(rightDistance);
+
+    // Center Servo
+    myServo.write(ServoNeutral);
+    delay(300);
+
+    if (leftDistance > rightDistance) {
+
+      left();
+      delay(500);
+
+    } else {
+
+      right();
+      delay(500);
+
+    }
+
+    stop();
+    delay(100);
+  }
+}
+
+int getDistance() {
+
+  delay(50);
+
+  int distance = sonar.ping_cm();
+
+  if (distance == 0) {
+    distance = MAX_DISTANCE;
+  }
+
+  return distance;
+}
+
+void forward() {
+
+  r1.run(FORWARD);
+  r2.run(FORWARD);
+  r3.run(FORWARD);
+  r4.run(FORWARD);
+}
+
+void backward() {
+
+  r1.run(BACKWARD);
+  r2.run(BACKWARD);
+  r3.run(BACKWARD);
+  r4.run(BACKWARD);
+}
+
+void left() {
+
+  r1.run(BACKWARD);
+  r2.run(FORWARD);
+  r3.run(BACKWARD);
+  r4.run(FORWARD);
+}
+
+void right() {
+
+  r1.run(FORWARD);
+  r2.run(BACKWARD);
+  r3.run(FORWARD);
+  r4.run(BACKWARD);
+}
+
+void stop() {
+
+  r1.run(RELEASE);
+  r2.run(RELEASE);
+  r3.run(RELEASE);
+  r4.run(RELEASE);
+}
+```
