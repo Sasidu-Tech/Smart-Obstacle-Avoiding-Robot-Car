@@ -1,5 +1,10 @@
-```cpp
+
 # 🤖 Smart Obstacle Avoiding Robot Car
+
+## 🎥 Demo
+
+[![Watch Demo on LinkedIn](https://img.shields.io/badge/Watch%20Demo-LinkedIn-blue?logo=linkedin)](https://lnkd.in/p/gKJFWD2P)
+![ESP32 Wi-Fi Scanner](Image/Obstacle-Avoiding-Robot-1.jpg)
 
 An autonomous obstacle-avoiding robot built using **Arduino Uno**, **L293D Motor Driver**, **HC-SR04 Ultrasonic Sensor**, and a **Servo Motor**. The robot continuously scans its surroundings, detects obstacles, and automatically selects the safest direction to move without human control. 0
 
@@ -95,9 +100,6 @@ An autonomous obstacle-avoiding robot built using **Arduino Uno**, **L293D Motor
 Rajarata University of Sri Lanka
 
 GitHub: https://github.com/Sasidu-Tech
-
----
-```
 
 ## ⭐ If you like this project
 
